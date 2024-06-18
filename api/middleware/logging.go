@@ -58,7 +58,7 @@ func Logging(logger zerolog.Logger, skipPaths []string) gin.HandlerFunc {
 
 		c.Next()
 
-		saveLog := logger.With().
+		responseLog := logger.With().
 			Int("status", c.Writer.Status()).
 			Str("method", c.Request.Method).
 			Str("path", path).
@@ -74,11 +74,11 @@ func Logging(logger zerolog.Logger, skipPaths []string) gin.HandlerFunc {
 
 		switch {
 		case c.Writer.Status() >= http.StatusBadRequest && c.Writer.Status() < http.StatusInternalServerError:
-			saveLog.Warn().Msg(msg)
+			responseLog.Warn().Msg(msg)
 		case c.Writer.Status() >= http.StatusInternalServerError:
-			saveLog.Error().Msg(msg)
+			responseLog.Error().Msg(msg)
 		default:
-			saveLog.Trace().Msg(msg)
+			responseLog.Trace().Msg(msg)
 		}
 	}
 }
