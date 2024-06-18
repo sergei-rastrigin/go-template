@@ -1,4 +1,4 @@
-# Your Project Name
+# Go API Starter Kit
 
 ## Folder Structure
 ```
